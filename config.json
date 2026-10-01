@@ -1,0 +1,547 @@
+{
+  "$schema": "./config.schema.json",
+  "site": {
+    "title": "From Reviewable to Reviewed: A Dialectical Standard of Care for Nurse- and Physician-Facing Clinical AI",
+    "displayTitle": "From Reviewable to Reviewed: <span class=\"title-sub\">A Dialectical Standard of Care for Nurse- and Physician-Facing Clinical AI</span>",
+    "venue": "AAAI 2026 Fall Symposium Series · AT-AI4H-NW 2026",
+    "description": "A procedural standard of care for clinical AI oversight. Dialectical review specifies clinician review as a performed and recorded act, with four conditions and a rule for allocating responsibility among vendor, institution, and clinician.",
+    "keywords": "Clinical AI, Human Oversight, Automation Bias, Standard of Care, Dialectical Review, Clinical Decision Support, EU AI Act, FDA, Medical Device Regulation, Liability, Nursing, Sepsis Alerting, AAAI Fall Symposium Series 2026",
+    "favicon": "favicon.ico",
+    "lang": "en",
+    "url": "",
+    "publicationDate": "2026"
+  },
+  "authors": [
+    {
+      "name": "Aizierjiang Aiersilan",
+      "url": "https://ezharjan.github.io/",
+      "affiliations": [
+        1
+      ]
+    }
+  ],
+  "affiliations": [
+    {
+      "id": 1,
+      "name": "The George Washington University"
+    }
+  ],
+  "links": [
+    {
+      "type": "arxiv",
+      "label": "arXiv",
+      "icon": "ai ai-arxiv",
+      "url": "https://arxiv.org/abs/2606.00044",
+      "enabled": true
+    },
+    {
+      "type": "confab",
+      "label": "Confab",
+      "icon": "fas fa-calendar-check",
+      "url": "https://cal.com/ezhar/30min",
+      "enabled": true
+    },
+    {
+      "type": "slides",
+      "label": "Slides",
+      "icon": "fas fa-chalkboard-teacher",
+      "url": "A_Dialectical_Standard_of_Care_AizierjiangAiersilan_silides4AAAI2026FSS.pdf",
+      "enabled": true
+    },
+    {
+      "type": "paper",
+      "label": "Paper",
+      "icon": "fas fa-file-pdf",
+      "url": "https://aaai.org/conference/fall-symposia/2026-fall-symposium-series-2/",
+      "enabled": true
+    }
+  ],
+  "abstract": {
+    "title": "Abstract",
+    "body": "United States and European Union law both make clinician review load-bearing without requiring that it be performed. The United States statutory clinical decision support exclusion conditions a system’s escape from device regulation on whether a clinician can independently review the basis for a recommendation, and Article 14 of the EU AI Act requires high-risk systems to be supplied so that overseers <i>can</i> remain aware of automation bias. Each provision is framed as a system capability rather than a performed act, and thus can be satisfied by a system that is reviewable in principle yet unreviewed in fact. Controlled studies locate the failure mode there: the accuracy of highly experienced radiologists fell from 82.3% to 45.5% when a purported AI supplied incorrect BI-RADS suggestions; in a separate experiment, explanations paired with incorrect recommendations reduced clinician accuracy rather than protecting against error. We argue that closing the gap requires specifying oversight as a <i>dialectical review</i> with four conditions: an independent prior assessment recorded before the output is seen, disclosure of the basis at decision-relevant granularity, a recorded disposition, and a consequence rule that turns the aggregated record into revalidation duties and evidence for allocating responsibility among vendor, institution, and clinician. We motivate these conditions by scoping the argument to three classes of deployed systems with distinct failure modes and by separating Lessig’s account of architecture as regulation from the claim that trained models cannot be audited against rules. We then apply the conditions to nurse-facing deterioration alerting, where clinician-AI dyads already operate at scale; test the framing against the patient’s position; and state the proposal’s limits."
+  },
+  "sections": [
+    {
+      "type": "list",
+      "title": "Contributions",
+      "ordered": true,
+      "align": "left",
+      "items": [
+        "<b>A scoped object of governance.</b> The argument is confined to three classes of deployed clinical AI with distinct failure modes, and the clinician-AI dyad is defined operationally as a named clinician paired with a deployed system instance ⟨<i>m</i>, <i>v</i>, <i>c</i>⟩.",
+        "<b>Architecture as regulation, partitioned.</b> Lessig’s claim about regulative effect is separated from the claim that trained models cannot be audited against rules; the separation identifies the inspectable deployment layer as the place where regulation should attach.",
+        "<b>A bounded analogy for confident error.</b> Machine and human confident error are treated as functionally, not mechanistically, alike: both express confidence that the evidence does not warrant, and in both the defect is invisible at the point of use.",
+        "<b>A procedural standard of care.</b> Dialectical review specifies clinical AI oversight as a performed and recorded act rather than an available capability, through four conditions (D1–D4) that close the gap between <i>reviewable</i> and <i>reviewed</i>.",
+        "<b>An allocation rule with an evidentiary record.</b> A three-tier rule states the duties of vendor, institution, and clinician, and the recorded disposition becomes the evidence against which their discharge is assessed.",
+        "<b>Application and limits.</b> The conditions are applied to nurse-facing deterioration alerting through a worked sepsis case, the framing is tested against the patient’s position, and the proposal is offered as piloted policy under evaluation rather than as a general mandate."
+      ]
+    },
+    {
+      "type": "group",
+      "title": "The Oversight Gap",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "United States and European Union law both make the reviewing clinician load-bearing, yet each specifies the clinician’s role largely at the level of <i>capability</i> rather than <i>conduct</i>. The United States clinical decision support exclusion asks whether software enables a clinician to independently review the basis for its recommendations. Article 14 of the EU AI Act requires that oversight personnel be enabled to remain aware of automation bias, and Article 26 obliges deployers to assign competent overseers, monitor operation, and retain the system’s logs; those logs record system activity, not the clinician’s reasoning. No provision requires that the reviewing judgment be formed independently of the output, that it be recorded, or that consequences follow when it is not. A deployment can therefore satisfy both regimes as written while every recommendation it issues is accepted without examination. The mechanism is documented in controlled studies."
+        },
+        {
+          "type": "table",
+          "caption": "<b>Automation bias in mammography.</b> Reader accuracy with correct and incorrect purported AI BI-RADS suggestions in a study of 27 radiologists (Dratsch et al. 2023).",
+          "columns": [
+            {
+              "header": "Readers",
+              "align": "left"
+            },
+            {
+              "header": "Correct AI<br>suggestions (%)"
+            },
+            {
+              "header": "Incorrect AI<br>suggestions (%)"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                "Inexperienced",
+                "79.7",
+                "19.8"
+              ]
+            },
+            {
+              "cells": [
+                "Highly experienced (almost eleven years on average)",
+                "82.3",
+                "45.5"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "Explanation, the instrument on which both regimes chiefly rely, can make matters worse when the recommendation is wrong: among 220 clinicians selecting antidepressants, incorrect recommendations paired with feature-level explanations significantly reduced accuracy (Jacobs et al. 2021). These experiments use simulated cases and manipulated advice; they show that the failure mode exists and can be induced, not how often recommendations go unreviewed in actual deployments. The data needed to establish the latter are not routinely captured, because a compliant deployment need not record whether review occurred."
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Scoping the Argument",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "“Clinical AI” names a category too broad to support a unified normative conclusion, so the argument is scoped to three classes of deployed systems, which differ in regulatory posture, characteristic failure, and the oversight they require. Across all three, the governance-relevant invariant is not fabrication but <i>unwarranted expressed confidence</i>."
+        },
+        {
+          "type": "table",
+          "caption": "<b>Table 1.</b> Three classes of deployed clinical AI. Hallucination is a Class C phenomenon; Classes A and B fail differently. All three converge on one governance-relevant invariant: they emit assertions whose expressed confidence is not a reliable guide to correctness. Conditions D1–D4 are defined under <i>Dialectical Review</i> below. Deployments and pathways: Abràmoff et al. (2018); Wong et al. (2021); DEN180001 (U.S. FDA 2018); K253281 (U.S. FDA 2025).",
+          "columns": [
+            {
+              "header": "Class",
+              "align": "left"
+            },
+            {
+              "header": "Representative<br>deployment"
+            },
+            {
+              "header": "Typical<br>pathway"
+            },
+            {
+              "header": "Characteristic<br>failure"
+            },
+            {
+              "header": "Oversight<br>posture"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "v": "<b>A.</b>&nbsp;Discriminative detection",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Mammography CAD; autonomous retinopathy screening",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "510(k); De Novo for the autonomous case (DEN180001)",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Miscalibrated confidence; distribution shift",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Assistive: dialectical review. Autonomous: excluded",
+                  "class": "t-wrap"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "v": "<b>B.</b>&nbsp;Risk prediction on EHR data",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Proprietary sepsis prediction; early warning scores",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Often non-device CDS or an institutional tool",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Calibration drift across sites; alert burden",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Assistive, time-critical: D1 relaxed to a post hoc record of the clinician’s assessment",
+                  "class": "t-wrap"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "v": "<b>C.</b>&nbsp;Generative and agentic systems",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Ambient documentation; summarization; conversational medication management",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Some are device-regulated (e.g., 510(k) devices with PCCPs); many are not",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Fabrication and omission; sycophancy toward false premises",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Assistive: dialectical review with provenance marking",
+                  "class": "t-wrap"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "subtitle",
+          "text": "The Clinician-AI Dyad"
+        },
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "The unit bearing the standard of care is the clinician-AI dyad ⟨<i>h</i>, <i>S</i>⟩: a named, licensed clinician <i>h</i> acting within scope of practice, paired with a deployed system instance <i>S</i> = ⟨<i>m</i>, <i>v</i>, <i>c</i>⟩ that comprises a model family <i>m</i>, a released version <i>v</i>, and an institutional configuration <i>c</i> fixing thresholds, interface presentation, alert routing, escalation policy, and the patient population to which the system is applied. The same model deployed at two hospitals with different thresholds therefore constitutes two system instances, and two dyads. The dyad performs the clinical act but does not bear every duty implicated in it: the vendor fixes <i>m</i> and <i>v</i>, and the institution fixes <i>c</i>."
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Architecture as Regulation, and Its Limits",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "Lessig’s thesis is that architecture regulates conduct alongside law, norms, and markets (Lessig 2006). Judge, Nitzberg, and Russell (2025) counter that deep networks are “opaque and not designed,” so compliance with a regulatory specification cannot be demonstrated. The two theses concern different objects: the first is a claim about <i>regulative effect</i>, the second a claim about <i>auditability</i>. A system can be unauditable against a specification and still decisively constrain its user’s conduct."
+        },
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "The partition is not a repair. Lessig’s <i>regulability</i> thesis, that a regulator can govern by governing code, does not survive for the trained model. What survives is its application to the <i>deployment layer</i>: which question is put to the model, what threshold fires an alert, whether the output is a ranked differential or a single recommendation, whether uncertainty is displayed or discarded, where the alert routes, and whether an override demands a reason. These choices remain ordinary, inspectable software practices, and regulation should attach there."
+        },
+        {
+          "type": "subtitle",
+          "text": "Two Regimes, One Object"
+        },
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "Device regulation and professional negligence law govern the same object, and neither can settle its own scope. Eligibility for the clinical decision support exclusion turns in part on what a clinician is positioned to do with a recommendation’s basis. Conversely, whether the availability and use of an authorized tool comes to shape the standard of care is a question that device regulation, rather than professional custom, could answer, although malpractice law’s conservatism has so far resisted that shift. The structure invites arbitrage on one side and chilling on the other. A vendor may characterize a system as non-device clinical decision support because clinicians independently review its basis, while marketing it on the strength of validated performance, which is a proposition about reliance. Malpractice exposure, in turn, pushes clinicians toward AI as “confirmatory advice only” (Price II, Gerke, and Cohen 2024). Following Solow-Niederman, the paper treats this structure not as inherently bad but as unmanaged."
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Confident Error: A Bounded Analogy",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "Hallucination and cognitive bias do not share a generative mechanism. What they share is a governance-relevant profile: both produce assertions whose expressed confidence is not warranted by the available evidence, and in both the defect is invisible at the point of use. That profile, and no deeper equivalence, supports governing both within one procedural architecture."
+        },
+        {
+          "type": "table",
+          "caption": "<b>Table 2.</b> Functional correspondence between human and machine confident error. It is behavioral, not a claim about shared mechanism, and the governance conclusion does not depend on one. The human column is contested (Norman et al. 2017).",
+          "columns": [
+            {
+              "header": "Failure mode",
+              "align": "left"
+            },
+            {
+              "header": "Human form"
+            },
+            {
+              "header": "Machine analogue"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                "Anchoring",
+                {
+                  "v": "An early framing fixes the differential and later data are discounted (Croskerry 2003)",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Output varies with the order in which case information is presented (Hager et al. 2024)",
+                  "class": "t-wrap"
+                }
+              ]
+            },
+            {
+              "cells": [
+                "Confirmation bias",
+                {
+                  "v": "Findings consistent with the working diagnosis are weighted more heavily",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Sycophancy toward false premises embedded in a clinical prompt (Omar et al. 2026)",
+                  "class": "t-wrap"
+                }
+              ]
+            },
+            {
+              "cells": [
+                "Premature closure",
+                {
+                  "v": "Alternatives go unconsidered once a diagnosis is reached; the leading cognitive contributor in 100 cases of diagnostic error (Graber, Franklin, and Gordon 2005)",
+                  "class": "t-wrap"
+                },
+                {
+                  "v": "Single-recommendation output without a differential, now within FDA enforcement discretion where one option is clinically appropriate (U.S. FDA 2026)",
+                  "class": "t-wrap"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Dialectical Review",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "Dialectical review is a procedure in which an independently formed human assessment and a machine output are brought into explicit confrontation and the resolution is recorded as a first-class clinical artifact. The gap it closes concerns the human half of the record: existing regimes establish that review is possible, that someone is nominated to perform it, and that the machine’s behavior is recorded, but not that a human judgment was formed independently, what it was, or what follows when none was."
+        },
+        {
+          "type": "figure",
+          "image": "static/images/dialectical_review.png",
+          "alt": "Flow diagram of dialectical review: the clinician’s provisional assessment is recorded before the system output is disclosed, the two are confronted, and the resolution is recorded as a disposition that feeds the allocation rule and audit",
+          "width": "100%",
+          "caption": "<b>Figure 1. Dialectical review as a specified procedure.</b> The clinician’s provisional assessment <i>a</i><sub>h</sub> is recorded before the model output <i>a</i><sub>m</sub> is disclosed (D1), so that sequence rather than exhortation controls anchoring. The confrontation compares the two on a disclosed basis (D2) and resolves into a recorded disposition <i>d</i> (D3), which enters the evidentiary record on which responsibility is assessed and, on crossing a preregistered trigger, obliges reassessment, reconfiguration of <i>c</i>, or withdrawal (D4). The dashed path across the top is the time-critical Class B exception."
+        },
+        {
+          "type": "subtitle",
+          "text": "Four Conditions"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "align": "left",
+          "items": [
+            "<b>D1. Independent prior.</b> The clinician forms and records a provisional assessment <i>a</i><sub>h</sub> before the system output <i>a</i><sub>m</sub> is disclosed. Anchoring operates through sequence, so sequence is the control variable. For time-critical Class B alerting, D1 is relaxed to a post hoc record of the clinician’s own assessment, which preserves a contemporaneous account but not sequence control.",
+            "<b>D2. Basis at decision-relevant granularity.</b> The system discloses what a reviewing clinician needs in order to disagree: system-level information (the population on which performance was established, the operating point, calibration, and known failure conditions) and case-level information (the inputs consulted, material missing data, any available case-specific uncertainty rather than model-average uncertainty, and, for Class C, the sources retrieved and tools invoked). Rationale comes last: feature-level rationale worsened accuracy when the recommendation was wrong in the antidepressant study (Jacobs et al. 2021), so its effect is empirically unsettled and D2 leads with reliability instead.",
+            "<b>D3. Recorded disposition.</b> The confrontation resolves into a structured record <i>d</i>: concurrence or override, a reason code, and a timestamp. This condition alone records how the confrontation was resolved.",
+            "<b>D4. Consequence rule.</b> For each system instance and reporting interval, the <i>override rate</i> (the share of dispositions recording disagreement with <i>a</i><sub>m</sub>) and the <i>pro forma share</i> (the fraction of concurrences whose reason entry matches the modal default) are stratified by unit and patient group and compared with bands preregistered before go-live. Crossing a band in either direction triggers a graduated duty: reassess against retained outputs and outcomes, reconfigure <i>c</i>, and suspend or withdraw the system where reassessment cannot restore the declared envelope. This monitoring half is paired with an allocative half, the allocation rule below."
+          ]
+        },
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "For agentic deployments, the unit of disposition is the <i>committed action</i>: any output that writes to the record, places an order, or reaches a patient, with sampled review of the rest. D1 then requires an independent assessment before commitment, not before every inference."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "body": "<b>A falsifiable proposal.</b> Dialectical review is itself an architectural intervention and is not immune in principle to the deference it targets, so the claim is deliberately narrow: the conditions change the <i>observability</i> of failure. The proposal fails if a deployment satisfying D1 through D4 shows persistently high disposition-log entropy and override rates tracking actual model error, yet yields outcomes no better than a matched deployment without them. No such study exists, and the paper does not claim its result."
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Allocating Responsibility",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "The allocation rule is a proposed set of duties with an evidentiary companion, not an automatic assignment of liability: each tier states what one party owes, and the D3 record is the evidence against which discharge of those duties is assessed. Duty, breach, and causation remain questions for the governing doctrine."
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "align": "left",
+          "items": [
+            "<b>Vendor.</b> Validated performance within its stated intended use and declared change-control envelope, and disclosure sufficient to make D2 possible.",
+            "<b>Institution.</b> Validation against its own patient population, responsible configuration of <i>c</i>, management of alert burden, retention of the system’s outputs for every monitored patient with linkage to outcomes sufficient for D4, and the competency and staffing needed to make D1 through D3 feasible.",
+            "<b>Clinician.</b> Performance of the review as specified and an honest disposition. A documented, reasoned override that proves incorrect is assessed as clinical judgment under ordinary negligence rather than as a failure to use an available tool, while under this proposed standard an absent disposition where one was required constitutes a breach independent of outcome."
+          ]
+        },
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "Because even a correct override makes the clinician more legible to discipline, the framework requires a non-retaliation term and a rule that override rate is never an individual performance metric; D4 uses it only at the deployment level. Since institutional policy may be admissible as evidence of the standard of care, mandating D1 through D3 also creates a timestamped, machine-checkable category of documented deviation. The rule thus shifts the locus of exposure rather than dissolving it: when exposure attaches to the quality of the recorded review, a documented departure becomes defensible, but this helps clinicians only if paired with an indemnity or safe-harbor term covering good-faith dispositions."
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Nursing: Where the Dyad Already Operates",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "Clinician-AI dyads operate at particularly large scale in nurse-facing deterioration alerting, where Class B systems act continuously on inpatient populations and nurses are the de facto human in the loop. It is also where the framework’s staffing preconditions bind most tightly."
+        },
+        {
+          "type": "subtitle",
+          "text": "A Worked Case: Proprietary Sepsis Alerting"
+        },
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "External validation of a widely deployed proprietary sepsis prediction model (Wong et al. 2021), covering 27,697 patients and 38,455 hospitalizations, found an area under the receiver operating characteristic curve of <b>0.63</b> (95% CI 0.62–0.64). At the threshold in use, a score of 6 that the hospital selected from the developer’s recommended range, sensitivity was <b>33%</b> and positive predictive value was <b>12%</b>. The model failed to identify 1,709 of 2,552 patients with sepsis (67%) while generating alerts in 18% of hospitalizations; approximately eight patients had to be evaluated for each case of sepsis identified."
+        },
+        {
+          "type": "table",
+          "caption": "<b>Bearing of each condition on the sepsis case.</b>",
+          "columns": [
+            {
+              "header": "Condition",
+              "align": "left"
+            },
+            {
+              "header": "Bearing on the case"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                "D1 (relaxed)",
+                {
+                  "v": "Preserves the nurse’s own assessment as a contemporaneous record, though not an independent one, since the alert has already been seen. Disagreements that would otherwise remain anecdotal become data.",
+                  "class": "t-wrap"
+                }
+              ]
+            },
+            {
+              "cells": [
+                "D2",
+                {
+                  "v": "Foreclosed in its decisive limb: the population on which the proprietary model’s performance had been established was unavailable to local users. Under this framework, that is primarily a vendor disclosure failure.",
+                  "class": "t-wrap"
+                }
+              ]
+            },
+            {
+              "cells": [
+                "D3",
+                {
+                  "v": "Makes the alert burden and the pattern of nurse disagreement examinable from local records soon after deployment, but cannot expose the 67% of cases the model missed: where no alert fires, there is nothing to respond to.",
+                  "class": "t-wrap"
+                }
+              ]
+            },
+            {
+              "cells": [
+                "D4",
+                {
+                  "v": "Places the computation of sensitivity on a preregistered schedule, using scores the institution retains for every monitored patient and links to independently ascertained outcomes; requires revalidation once the trigger fires; and gives the nurse who escalates against a reassuring score a recorded defense.",
+                  "class": "t-wrap"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "body": "<b>The hardest case, not the easiest.</b> Override logging has existed in medication alerting for two decades without governing anything, with alerts overridden at rates between 49% and 96% (van der Sijs et al. 2006). The disposition record is worth little without D4’s trigger, and alert burden is how nominal oversight becomes null oversight."
+        },
+        {
+          "type": "subtitle",
+          "text": "A Distributive Precondition"
+        },
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "D1 through D3 consume clinician time, which is scarcest in exactly the settings where clinical AI is proposed as a remedy for scarcity. The global nursing workforce reached 29.8 million in 2023 against a shortage of 5.8 million (World Health Organization 2025). Where the shortage is deepest, the pressure to substitute is greatest and the slack to review is least. Dialectical review therefore cannot be a clinician-level duty alone. It is an institutional duty first: an institution that configures <i>c</i> to generate an alert burden its staffing cannot review has not delegated a duty; it has created a foreseeable failure."
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Patients: Autonomy and the Limits of Justice",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "A dyadic framing risks describing a two-party relationship where there are three, since clinical decision support makes the encounter triadic. Principlism supplies the vocabulary, and the four conditions engage each of its principles differently."
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "align": "left",
+          "items": [
+            "<b>Autonomy.</b> Meaningful disclosure requires content, and the relevant content is the disposition: a clinician cannot verifiably tell a patient that the system suggested one course while the clinician judged otherwise, and why, unless that judgment was recorded. D3 is therefore a precondition of substantive disclosure, not merely of audit.",
+            "<b>Justice, and a limit.</b> The paper does not claim that the dyad produces a more just distribution of care. Encounter-level review cannot detect bias residing in the choice of prediction target. In a well-known example, an algorithm assigned equal risk scores to Black and White patients who were not equally sick; correcting the disparity would have raised the share of Black patients identified for additional help from 17.7% to 46.5% (Obermeyer et al. 2019). What review supplies is aggregate material: a systematic shift that no clinician could see case by case can still register as a divergence in disposition rates stratified by patient group, for which a D4 trigger can be defined. The primary duty lies at the population level.",
+            "<b>Beneficence and nonmaleficence.</b> These cut both ways: withholding an accurate tool has costs, so the standard of care must accommodate improvement rather than defend custom, while an alert burden that consumes attention without improving detection is a harm."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Limits and Conclusion",
+      "blocks": [
+        {
+          "type": "text",
+          "align": "justify",
+          "body": "This is a conceptual paper. The costs of D1 through D3 are certain and denominated in clinician time, while the benefits (observability, allocation clarity, and disclosure content) are hypothesized, and D1 carries a documented cost to appropriate reliance. The warranted conclusion is therefore not a general mandate but adoption as piloted policy under evaluation. The argument is scoped to assistive deployments, its legal analysis is confined to United States and European Union frameworks, and its analogy between machine and human confident error is functional by construction."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "body": "Auditable oversight is not effective oversight; it makes ineffectiveness visible, the precondition for anything else. Bedside review cannot detect population-level bias. And review costs clinician time, so it is an institutional duty first. What remains is a checkable specification of what being in the loop must mean."
+        }
+      ]
+    }
+  ],
+  "slides": {
+    "enabled": true,
+    "title": "Slides",
+    "caption": "Talk slides for the AAAI 2026 Fall Symposium Series.",
+    "file": "A_Dialectical_Standard_of_Care_AizierjiangAiersilan_silides4AAAI2026FSS.pdf",
+    "fileLabel": "PDF",
+    "imagePattern": "static/images/slides/slide-{n}.jpg",
+    "count": 40,
+    "pad": 2,
+    "width": 1600,
+    "height": 900
+  },
+  "bibtex": {
+    "title": "BibTeX",
+    "entry": "@inproceedings{aiersilan2026reviewable,\n  title={From Reviewable to Reviewed: A Dialectical Standard of Care for Nurse- and Physician-Facing Clinical {AI}},\n  author={Aiersilan, Aizierjiang},\n  booktitle={AAAI 2026 Fall Symposium Series: Agentic and Trustworthy AI for Health and the Global AI-Ready Nursing Workforce (AT-AI4H-NW 2026)},\n  year={2026}\n}"
+  },
+  "footer": {
+    "showLinks": false,
+    "text": "© 2026 Aizierjiang Aiersilan."
+  }
+}

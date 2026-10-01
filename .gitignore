@@ -1,0 +1,14 @@
+index-template.html
+
+.vscode
+.idea
+.env
+.cache
+/cache/
+.DS_store
+temp
+.temp
+temp/
+
+# Private build sources (paper LaTeX, code): never publish
+__reference_materials/
